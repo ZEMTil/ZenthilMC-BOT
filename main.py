@@ -3,6 +3,23 @@ import os
 from dotenv import load_dotenv
 from discord import Intents, Client, Message
 from responses import get_response
+from discord.ext import commands
+
+intents = discord.Intents.default()
+intents.typing = False
+intents.presences = False
+
+bot = commands.Bot(command_prefix='!', intents=intents)
+
+@bot.event
+async def on_ready():
+    # Установка активности бота
+    await bot.change_presence(activity=discord.Game(name="/help"))
+
+    print(f'Logged in as {bot.user.name}')
+
+# Вставьте свой токен для бота Discord
+bot.run('YOUR_DISCORD_BOT_TOKEN')
 
 # STEP 0: LOAD OUR TOKEN FROM SOMEWHERE SAFE
 load_dotenv()
